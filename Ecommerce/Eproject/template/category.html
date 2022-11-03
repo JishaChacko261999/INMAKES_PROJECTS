@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+  {% if category %}
+      {{ category.description|truncatewords:155 }}
+  {% else %}
+      Welcome to Enjoy Shopping store where you can buy different items...
+  {% endif %}
+{% endblock %}
+
+{% block title %}
+  {% if category %}
+      {{ category.name}} - Enjoy Shopping
+  {% else %}
+      See our new Collections - Enjoy Shopping
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+    <div>
+        <div class="row my_row_class">
+            <div class="mx-auto">
+            <p>
+                <a href="{% url 'shop:allProdCat' %}">Our product Collections</a>
+
+            </p>
+        </div>
+            </div>
+    </div>
+{% endif %}
+<div class="mx_auto">
+    {% if category %}
+    <img class="my_image" src="{{category.image.url}}"  alt="{{category.name}}">
+</div><br>
+<div>
+    <h1 class="text-center my_title" >{{category.name}}</h1>
+    <p class="text-justify">{{category.description}}</p>
+</div>
+    {% else %}
+<div>
+    <img class="my_image my_image_padding" src="{% static 'img/banner.jfif' %}" alt="our products" width="1100px" height="500px">
+</div><br>
+<div>
+    <h1 class="text-center my_title" style="font-family: font-family: Times New Roman, Times, serif;font-color:#FFC0CB;">Our products </h1>
+    <p class="text-justify"><b>Men’s Shirts</b>
+        Designed for the jet-setter in mind, our shirt is the ideal blend of comfort and style. Built for the man who’s in demand, this classic design will keep you looking presentable on the go, with a gentle fabric for all-day comfort. Because you won’t perform at your best if you’re irritated by your clothing. <br>
+        Our shirt is a sleek take on a well-loved classic featuring a tried-and-tested spread collar and a slim fit styling.<br>
+        <b>Sleepwear</b>
+       Getting a full 8-hours can feel near-impossible. From comfort to warmth, what you wear in bed is essential for improving your quality of sleep. With a silky fabric and elegant, airy fit, our sleepwear gives you space to breathe. Our superior comfort puts you on the right track for incredible sleep.<br>
+        Emphasizing your shape in all the right places, with our sleepwear, you don’t have to sacrifice style for comfort – to us, it’s the same thing.</p>
+      <b>Evening dress</b>
+       Evening events are prime time for fashion. You look your best when you feel your best, and our dress can inspire confidence in anyone. We’ll put you at the center of the action without upstaging anyone. Classy and understated, our dress ensures you feel at your best – ready to show off and turn some heads. Made from premium silk, the delicate and flowing construction gives you space to move freely without compromising on elegance.
+
+       Our evening dress description speaks to how clothing can make you feel. This is a powerful theme among our examples of fashion product descriptions.
+      <br>
+
+
+        <b>Suits</b>
+
+       The suit has framed all the pivotal moments in history. There’s no denying, it’s a powerful piece of clothing – enough to make anyone feel ready to change the world.
+       We built our suit for the game-changers.
+      <br>Designed for the man ready to take on the world, the slim fit and accentuated shoulders give you the presence you deserve.
+      Made from the highest-quality fabric, we believe that how you dress has a significant effect on how you’re perceived – we made this suit for the highest quality impact.
+
+      This is another description that focuses on how the clothing will make you feel. Anyone can see what the clothing is, but only you can describe how it will change your life.
+   </div>
+{% endif %}
+<br><br>
+<div class="container">
+    <div class="row mx_auto">
+        {% for product in products.object_list %}
+            <div class="my_bottom_margin col-9 col-sm-12  col-md-4 col-lg-4">
+                <div class="card text-center" style="min-width:8rem;" >
+                    <a href="{{product.get_url}}"><img  class="card-img-top my_image" width=100 height=90 src="{{product.image.url}}"  alt="{{product.name}}"></a>
+                     <div class="card-body"><br>
+                          <h4>{{product.name}}</h4>
+                           <p>{{product.price}}</p><br>
+                     </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if products.paginator.num_pages > 1 %}
+        <hr>
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+    </div>
+</div>
+{% endblock %}
+
