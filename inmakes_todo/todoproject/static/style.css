@@ -1,0 +1,19 @@
+.banner
+{
+background-color: rgb(6 95 70);
+width:200%;
+height:100px;
+margin-bottom:10px;
+}
+.banner-text
+{
+top:100%
+left:150%
+text-align:center;
+position:absolute;
+transform:transform;
+}
+.text-center
+{
+text-align:center;
+}
